@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .main-header {
+            padding-bottom: 100px;
+            background-color: #F6FFE6;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+
+                axisY: {
+                    includeZero: false,
+                    labelFontColor: "#C24642",
+                    title: "Run Scored -->"
+                },
+
+                axisX: {
+                    labelFontColor: "#C24642",
+                    title: "Overs -->"
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: [
+                        {
+                            x: 5,
+                            y: 40,
+                        },
+                        {
+                            x: 10,
+                            y: 75
+                        }
+                        , {
+                            x: 15,
+                            y: 140,
+
+                        }, {
+                            x: 20,
+                            y: 210,
+
+                        }
+                    ]
+                }]
+            });
+            chart.render();
+
+        }
+    </script>
+</head>
+
+<body>
+    <header class='main-header'><br><br><br><h2 class='heading'>INDIA Batting Statistics: </h3></header>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
+</body>
+
+</html>

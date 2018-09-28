@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        h1 {
+            background-color: rgb(209, 180, 180);
+        }
+
+        .videoContainer {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1 style="padding-bottom: 65px;"><img src="videoIcon.jpg" alt="logo" style="float: left;width:100px;height:100px;" /> Awesome Online videos </h1>
+        <h3>Change background color:</h3>
+        <select id='backgroundColor' onchange="myFunction()">
+                    <option value="brown">Brown</option>
+                    <option value="green">Green</option>
+                    <option value="red">Red</option>
+                    <option value="yellow">Yellow</option>
+                  </select>
+
+
+
+
+
+    </div>
+
+    <div style="text-align:center" id='videoContainer'>
+
+        <video id="video1" width="420">
+            <source src="rabbit.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+        </video>
+        <br><br>
+        <button onclick="play()">Play</button>
+        <button onclick="pause()">Pause</button>
+
+    </div>
+
+    <script>
+        var myVideo = document.getElementById("video1");
+
+        function play() {
+            if (myVideo.paused)
+                myVideo.play();
+            else
+                alert("Video is already playing!!")
+        }
+
+        function pause() {
+            myVideo.pause();
+        }
+
+        var e = document.getElementById("backgroundColor");
+        var elem = document.getElementById("videoContainer");
+        function myFunction(){
+            console.log(e.value);
+            elem.style.backgroundColor = e.value;
+        }
+    </script>
+
+</body>
+
+</html>
