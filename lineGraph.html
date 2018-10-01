@@ -1,85 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        .main-header {
-            padding-bottom: 100px;
-            background-color: #e6e6ff;
-            text-align: center;
+<html>
+    <head>
+      <style>html{font-family:Verdana;}</style>
+        
+    <script type="text/javascript">
+    
+    var canvas ;
+    var context ;
+    var Val_max;
+    var Val_min;
+    var sections;
+    var xScale;
+    var yScale;
+    var Apple =  [281, 277, 275, , 457, 200, 280, 150];
+    function init() {
+        sections = 6;
+        Val_max = 500;
+        Val_min = 100;
+        var stepSize = 50;
+        var columnSize = 50;
+        var rowSize = 50;
+        var margin = 10;
+        var xAxis = ["2001", "2002", "2003", "2004", "2005", "2006", "2007"] ;
+        canvas = document.getElementById("canvas");
+        context = canvas.getContext("2d");
+        
+        yScale = (canvas.height - columnSize - margin) / (Val_max - Val_min);
+        xScale = (canvas.width - rowSize) / sections;
+        context.beginPath();
+        for (i=1;i<=sections;i++) {
+            var x = i * xScale;
+            context.fillText(xAxis[i], x,columnSize - margin);
+            context.moveTo(x, columnSize);
+            context.lineTo(x, canvas.height - margin);
         }
-
-        .heading{
-            vertical-align:middle;
+        var count =  0;
+        for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+            var y = columnSize + (yScale * count * stepSize); 
+            context.fillText(scale, margin,y + margin);
+            context.moveTo(rowSize,y)
+            context.lineTo(canvas.width,y)
+            count++;
         }
-    </style>
-
-    <script>
-        window.onload = function () {
-
-            var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
-                theme: "light2",
-
-                axisY: {
-                    includeZero: false,
-                    labelFontColor: "#C24642",
-                    title: "Bajra yeild in lakh tonnes --->"
-                },
-
-                axisX: {
-                    labelFontColor: "#C24642",
-                    title: "Year (2001 - 2007)--->"
-                },
-                data: [{
-                    type: "line",
-                    dataPoints: [
-                        {
-                            x: 2001,
-                            y: 281,
-                        },
-                        {
-                            x: 2002,
-                            y: 277
-                        }
-                        , {
-                            x: 2003,
-                            y: 275,
-
-                        }, {
-                            x: 2004,
-                            y: 457,
-
-                        }, {
-                            x: 2005,
-                            y: 200,
-
-                        }, {
-                            x: 2006,
-                            y: 280,
-
-                        }, {
-                            x: 2007,
-                            y: 150,
-
-                        }
-                    ]
-                }]
-            });
-            chart.render();
-
+        context.stroke();
+        
+        context.translate(rowSize,canvas.height + Val_min * yScale);
+        context.scale(1,-1 * yScale);
+        context.strokeStyle="#FF0066";
+        plotData(Apple);
+    }
+    
+    function plotData(dataSet) {
+        context.beginPath();
+        context.moveTo(0, dataSet[0]);
+        for (i=1;i<sections;i++) {
+            context.lineTo(i * xScale, dataSet[i]);
         }
+        context.stroke();
+    }
+    
     </script>
-</head>
-
-<body>
-    <header class='main-header'><br><br><br><h2 class='heading'>Agricultural Statistical Department of GOI</h3></header>
-    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>
-</body>
-
-</html>
+    </head>
+    
+    <body onLoad="init()">
+    <div align="center">
+    <h2>Agricultural Statistical Department of GOI</h2>
+    
+    <canvas id="canvas" height="400" width="650">
+    </canvas>
+    <br>
+        <!--Legends for Dataplot -->
+    <span style="color:#FF0066"> Bajra Yeilds (In Lakh Tonnes) [2002 - 2007] </span>  
+    </div>
+    </body>
+    </html>
